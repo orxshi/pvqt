@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
+    <width>1169</width>
     <height>600</height>
    </rect>
   </property>
@@ -14,19 +14,6 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="pushButton">
-    <property name="geometry">
-     <rect>
-      <x>670</x>
-      <y>50</y>
-      <width>89</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Refresh</string>
-    </property>
-   </widget>
    <widget class="QWidget" name="widget" native="true">
     <property name="geometry">
      <rect>
@@ -40,24 +27,83 @@
    <widget class="QChartView" name="graphicsView">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>40</y>
-      <width>581</width>
-      <height>501</height>
+      <x>310</x>
+      <y>30</y>
+      <width>501</width>
+      <height>431</height>
      </rect>
     </property>
    </widget>
-   <widget class="QCheckBox" name="checkBox">
+   <widget class="QCheckBox" name="checkBox_stirling">
     <property name="geometry">
      <rect>
-      <x>660</x>
-      <y>210</y>
+      <x>10</x>
+      <y>90</y>
       <width>92</width>
       <height>23</height>
      </rect>
     </property>
     <property name="text">
-     <string>CheckBox</string>
+     <string>Stirling</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_carnot">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>60</y>
+      <width>92</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Carnot</string>
+    </property>
+   </widget>
+   <widget class="QChartView" name="graphicsView_2">
+    <property name="geometry">
+     <rect>
+      <x>860</x>
+      <y>30</y>
+      <width>291</width>
+      <height>431</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QDoubleSpinBox" name="doubleSpinBox_cr">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>150</y>
+      <width>65</width>
+      <height>26</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_cr">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>190</y>
+      <width>89</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Apply</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>130</y>
+      <width>131</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Compression ratio</string>
     </property>
    </widget>
   </widget>
@@ -66,7 +112,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>1169</width>
      <height>22</height>
     </rect>
    </property>

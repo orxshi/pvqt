@@ -1,44 +1,50 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 #include <iostream>
-#include <QtCharts>
+
+#include "Stirling.h"
+#include "Carnot.h"
+
+
+QChart *chart;
+QChartView *chartView;
+QValueAxis* x_axis;
+QValueAxis* y_axis;
+
+Stirling* stirling = nullptr;
+Carnot* carnot = nullptr;
 
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
+
     ui->setupUi(this);
 
-    QLineSeries *series0 = new QLineSeries();
-    QLineSeries *series1 = new QLineSeries();
+    //series = new QLineSeries();
+    chart = new QChart();
+    //chart->setTitle("Simple line chart example");
+    x_axis = new QValueAxis();
+    y_axis = new QValueAxis();
+    x_axis->setTitleText("V");
+    y_axis->setTitleText("P");
+    chart->addAxis(x_axis, Qt::AlignBottom);
+    chart->addAxis(y_axis, Qt::AlignLeft);
+    chartView = new QChartView(chart);
 
-    *series0 << QPointF(1, 5) << QPointF(3, 7) << QPointF(7, 6) << QPointF(9, 7) << QPointF(12, 6)
-             << QPointF(16, 7) << QPointF(18, 5);
-    *series1 << QPointF(1, 3) << QPointF(3, 4) << QPointF(7, 3) << QPointF(8, 2) << QPointF(12, 3)
-             << QPointF(16, 4) << QPointF(18, 3);
-
-    QAreaSeries *series = new QAreaSeries(series0, series1);
-    series->setName("Batman");
-    QPen pen(0x059605);
-    pen.setWidth(3);
-    series->setPen(pen);
-
-    QLinearGradient gradient(QPointF(0, 0), QPointF(0, 1));
-    gradient.setColorAt(0.0, 0x3cc63c);
-    gradient.setColorAt(1.0, 0x26f626);
-    gradient.setCoordinateMode(QGradient::ObjectBoundingMode);
-    series->setBrush(gradient);
-
-    QChart *chart = new QChart();
-    chart->addSeries(series);
-    chart->setTitle("Simple areachart example");
-    chart->createDefaultAxes();
-    chart->axes(Qt::Horizontal).first()->setRange(0, 20);
-    chart->axes(Qt::Vertical).first()->setRange(0, 10);
-
-    QChartView *chartView = new QChartView(chart);
     chartView->setRenderHint(QPainter::Antialiasing);
+
+
+    ui->graphicsView->setChart(chart);
+
+    ui->doubleSpinBox_cr->setValue(cr);
+
+
+    //ui->graphicsView->setChart(chart);
+
+
+
 
     //GraphicsView->setChart(&chartView);
 
@@ -49,7 +55,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 
 
-    ui->graphicsView->setChart(chart);
+    //ui->graphicsView->setChart(chart);
 }
 
 MainWindow::~MainWindow()
@@ -58,9 +64,103 @@ MainWindow::~MainWindow()
 }
 
 
-void MainWindow::on_pushButton_clicked()
-{
-    std::cout << "hiiiii" << std::endl;
 
+
+
+
+
+void MainWindow::on_checkBox_stirling_stateChanged(int arg1)
+{
+    if (stirling == nullptr)
+    {
+        stirling = new Stirling();
+    }
+
+    if (stirling->first)
+    {
+        stirling->run();
+
+    }
+
+
+
+    if (ui->checkBox_stirling->isChecked())
+    {
+
+        stirling->draw(chart);
+        stirling->series->attachAxis(x_axis);
+        stirling->series->attachAxis(y_axis);
+
+
+    }
+    else
+    {
+        chart->removeSeries(stirling->series);
+
+    }
+
+
+}
+
+
+void MainWindow::on_checkBox_carnot_stateChanged(int arg1)
+{
+    if (carnot == nullptr)
+    {
+        carnot = new Carnot();
+    }
+
+    if (carnot->first)
+    {
+        carnot->run();
+
+    }
+
+
+
+    if (ui->checkBox_carnot->isChecked())
+    {
+
+        carnot->draw(chart);
+        carnot->series->attachAxis(x_axis);
+        carnot->series->attachAxis(y_axis);
+
+
+    }
+    else
+    {
+        chart->removeSeries(carnot->series);
+
+    }
+
+
+}
+
+
+
+
+
+void MainWindow::on_doubleSpinBox_cr_valueChanged(double arg1)
+{
+    cr = ui->doubleSpinBox_cr->value();
+    VH = cr * VL;
+    //std::cout << cr << std::endl;
+
+}
+
+
+void MainWindow::on_pushButton_cr_clicked()
+{
+    chart->removeSeries(stirling->series);
+
+    stirling->run();
+
+    stirling->draw(chart);
+    std::cout << stirling->Vmin << std::endl;
+    std::cout << stirling->Pmin << std::endl;
+    x_axis->setRange(stirling->Vmin, stirling->Vmax);
+    y_axis->setRange(stirling->Pmin, stirling->Pmax);
+        //stirling->series->attachAxis(x_axis);
+        //stirling->series->attachAxis(y_axis);
 }
 

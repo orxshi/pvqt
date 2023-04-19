@@ -16,7 +16,16 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_pushButton_clicked();
+
+    void on_checkBox_carnot_stateChanged(int arg1);
+
+    void on_checkBox_stirling_stateChanged(int arg1);
+
+
+
+    void on_doubleSpinBox_cr_valueChanged(double arg1);
+
+    void on_pushButton_cr_clicked();
 
 private:
     Ui::MainWindow *ui;
