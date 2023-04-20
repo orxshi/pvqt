@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1169</width>
-    <height>600</height>
+    <width>1387</width>
+    <height>926</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -27,7 +27,7 @@
    <widget class="QChartView" name="graphicsView">
     <property name="geometry">
      <rect>
-      <x>310</x>
+      <x>350</x>
       <y>30</y>
       <width>501</width>
       <height>431</height>
@@ -63,9 +63,9 @@
    <widget class="QChartView" name="graphicsView_2">
     <property name="geometry">
      <rect>
-      <x>860</x>
+      <x>900</x>
       <y>30</y>
-      <width>291</width>
+      <width>451</width>
       <height>431</height>
      </rect>
     </property>
@@ -106,13 +106,69 @@
      <string>Compression ratio</string>
     </property>
    </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>40</y>
+      <width>67</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Net work</string>
+    </property>
+   </widget>
+   <widget class="QLCDNumber" name="lcdNumber_nw_stirling">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>90</y>
+      <width>64</width>
+      <height>23</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLCDNumber" name="lcdNumber_nw_carnot">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>60</y>
+      <width>64</width>
+      <height>23</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>250</y>
+      <width>81</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Resolution</string>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="spinBox_res">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>270</y>
+      <width>91</width>
+      <height>26</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1169</width>
+     <width>1387</width>
      <height>22</height>
     </rect>
    </property>

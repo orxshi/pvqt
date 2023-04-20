@@ -3,50 +3,22 @@
 
 #include <QtCharts>
 #include "common.h"
+#include "cycle.h"
 
-
-
-
-struct Carnot
+struct Carnot: Cycle
 {
-    bool first;
-
-    QLineSeries *series;
-
     Carnot()
     {
-        series = new QLineSeries();
-        first = true;
+        series_pv->setName("Carnot");
+        series_ts->setName("Carnot");
     }
 
-    double P[n];
-    double V[n];
-    double T[n];
-    double work;
-
-    void run()
+    void processes()
     {
-        work = 0.;
-
         isentropic_compression(0, P, V, T, work);
+        isothermal_heat_rejection(1, V[nquad-1], VH, P, V, T, work);
         isentropic_expansion(2, P, V, T, work);
-        isothermal_heat_addition(1, VL, V[nquad*2], P, V, T, work);
-        isothermal_heat_rejection(3, V[0], VH, P, V, T, work);
-
-
-
-        first = false;
-
-        for (int i=0; i<n; ++i)
-        {
-            series->append(V[i], P[i]);
-        }
-    }
-
-    void draw(QChart* chart)
-    {
-        series->setName("Carnot");
-        chart->addSeries(series);
+        isothermal_heat_addition(3, VL, V[nquad*3-1], P, V, T, work);
 
     }
 };
