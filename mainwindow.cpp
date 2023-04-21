@@ -62,8 +62,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->doubleSpinBox_cr->setMinimum(std::pow((TH / TL), 1 / (GM - 1)));
 
 
-    ui->spinBox_res->setMaximum(9999999);
-    ui->spinBox_res->setValue(n);
+    //ui->spinBox_res->setMaximum(9999999);
+    //ui->spinBox_res->setValue(n);
 
 
 
@@ -136,13 +136,6 @@ void rescale()
 
     x_axis_ts->setRange(Smin, Smax);
     y_axis_ts->setRange(Tmin, Tmax);
-
-    std::cout << "VL: " << VL << std::endl;
-    std::cout << "VH: " << VH << std::endl;
-
-    std::cout << "Vmin: " << Vmin << std::endl;
-    std::cout << "Carnot Vmin: " << carnot->Vmin << std::endl;
-
 }
 
 
@@ -155,6 +148,7 @@ void MainWindow::on_checkBox_stirling_stateChanged(int arg1)
         stirling->draw(chart_pv, chart_ts, x_axis_pv, y_axis_pv, x_axis_ts, y_axis_ts);
 
         ui->lcdNumber_nw_stirling->display(stirling->work);
+        ui->lcdNumber_eff_stirling->display(stirling->eff);
 
         rescale();
     }
@@ -167,6 +161,7 @@ void MainWindow::on_checkBox_stirling_stateChanged(int arg1)
         stirling = nullptr;
 
         ui->lcdNumber_nw_stirling->display(0);
+        ui->lcdNumber_eff_stirling->display(0);
     }
 
 
@@ -181,6 +176,8 @@ void MainWindow::on_checkBox_carnot_stateChanged(int arg1)
         carnot->draw(chart_pv, chart_ts, x_axis_pv, y_axis_pv, x_axis_ts, y_axis_ts);
 
         ui->lcdNumber_nw_carnot->display(carnot->work);
+        ui->lcdNumber_eff_carnot->display(carnot->eff);
+
 
         rescale();
 
@@ -195,6 +192,7 @@ void MainWindow::on_checkBox_carnot_stateChanged(int arg1)
         carnot = nullptr;
 
         ui->lcdNumber_nw_carnot->display(0);
+        ui->lcdNumber_eff_carnot->display(0);
     }
 
 

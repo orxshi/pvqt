@@ -4,21 +4,36 @@
 #include <QtCharts>
 #include "common.h"
 #include "cycle.h"
+#include "process.h"
 
 struct Stirling: Cycle
 {
-    Stirling()
-    {        
-        series_pv->setName("Stirling");
-        series_ts->setName("Stirling");
-    }   
+    Process* p0;
+    Process* p1;
+    Process* p2;
+    Process* p3;
 
-    void processes()
+    Stirling(): Cycle("Stirling")
     {
-        isothermal_heat_rejection(0, VL, VH, P, V, T, work);
-        isochoric_compression(1, P, V, T);
-        isothermal_heat_addition(2, VL, VH, P, V, T, work);
-        isochoric_expansion(3, P, V, T);
+        p0 = new IsothermalExpansion(np, true);
+        p1 = new IsochoricHeating(np);
+        p2 = new IsothermalExpansion(np);
+        p3 = new IsochoricHeating(np, true);
+
+        processes.push_back(p0);
+        processes.push_back(p1);
+        processes.push_back(p2);
+        processes.push_back(p3);
+    }
+
+    void run_processes()
+    {
+        static_cast<IsothermalExpansion*>(p0)->run(TL, VL, VH);
+        static_cast<IsochoricHeating*>(p1)->run(VL, TL, TH);
+        static_cast<IsothermalExpansion*>(p2)->run(TH, VL, VH);
+        static_cast<IsochoricHeating*>(p3)->run(VH, TL, TH);
+
+        heat_input = p2->heat;
     }
 };
 

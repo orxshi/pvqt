@@ -17,6 +17,11 @@ set(PROJECT_SOURCES
         main.cpp
         mainwindow.cpp
         mainwindow.h
+        Stirling.h
+        Carnot.h
+        common.h
+        cycle.h
+        process.h
         mainwindow.ui
 )
 

@@ -139,26 +139,36 @@
      </rect>
     </property>
    </widget>
-   <widget class="QLabel" name="label_3">
+   <widget class="QLabel" name="label_4">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>250</y>
-      <width>81</width>
+      <x>180</x>
+      <y>40</y>
+      <width>71</width>
       <height>17</height>
      </rect>
     </property>
     <property name="text">
-     <string>Resolution</string>
+     <string>Efficiency</string>
     </property>
    </widget>
-   <widget class="QSpinBox" name="spinBox_res">
+   <widget class="QLCDNumber" name="lcdNumber_eff_carnot">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>270</y>
-      <width>91</width>
-      <height>26</height>
+      <x>180</x>
+      <y>60</y>
+      <width>64</width>
+      <height>23</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLCDNumber" name="lcdNumber_eff_stirling">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>90</y>
+      <width>64</width>
+      <height>23</height>
      </rect>
     </property>
    </widget>

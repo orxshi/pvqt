@@ -2,27 +2,27 @@
 #define CYCLE_H
 
 #include <fstream>
+#include "process.h"
 
 struct Cycle
 {
-    bool first;
     double Pmin, Vmin, Tmin, Smin;
     double Pmax, Vmax, Tmax, Smax;
-    double P[n];
-    double V[n];
-    double T[n];
-    double S[n];
+    std::vector<Process*> processes;
     double work;
+    double heat_input;
+    double eff;
 
     QLineSeries *series_pv;
     QLineSeries *series_ts;
 
-    Cycle()
+    Cycle(QString name)
     {
         series_pv = new QLineSeries();
         series_ts = new QLineSeries();
 
-        first = true;
+        series_pv->setName(name);
+        series_ts->setName(name);
     }
 
     ~Cycle()
@@ -37,58 +37,54 @@ struct Cycle
         Vmax = -1e9;
         Tmax = -1e9;
         Smax = -1e9;
-        for (int i=0; i<n; ++i)
+        for (Process* process: processes)
         {
-            Pmax = std::max(Pmax, P[i]);
-            Vmax = std::max(Vmax, V[i]);
-            Tmax = std::max(Tmax, T[i]);
-            Smax = std::max(Smax, S[i]);
+            Pmax = std::max(Pmax, process->Pmax);
+            Vmax = std::max(Vmax, process->Vmax);
+            Tmax = std::max(Tmax, process->Tmax);
+            Smax = std::max(Smax, process->Smax);
+
         }
 
         Pmin = 1e9;
         Vmin = 1e9;
         Tmin = 1e9;
         Smin = 1e9;
-        for (int i=0; i<n; ++i)
+        for (Process* process: processes)
         {
-            Pmin = std::min(Pmin, P[i]);
-            Vmin = std::min(Vmin, V[i]);
-            Tmin = std::min(Tmin, T[i]);
-            Smin = std::min(Smin, S[i]);
+            Pmin = std::min(Pmin, process->Pmin);
+            Vmin = std::min(Vmin, process->Vmin);
+            Tmin = std::min(Tmin, process->Tmin);
+            Smin = std::min(Smin, process->Smin);
         }
     }
 
-    virtual void processes() = 0;
+    virtual void run_processes() = 0;
 
     void run()
     {
-        work = 0.;
-
-        for (int i=0; i<n; ++i)
-        {
-            P[i] = 10;
-            V[i] = 10;
-            T[i] = 10;
-            S[i] = 10;
-        }
-
-        processes();
-
-        get_entropy(V, T, S);
+        run_processes();
 
         find_min_max();
 
-        first = false;
-
         series_pv->clear();
         series_ts->clear();
-        for (int i=0; i<n; ++i)
+        for (Process* process: processes)
         {
-            series_pv->append(V[i], P[i]);
-            series_ts->append(S[i], T[i]);
+            for (int i=0; i<process->n; ++i)
+            {
+                series_pv->append(process->V[i], process->P[i]);
+                series_ts->append(process->S[i], process->T[i]);
+            }
         }
 
-        work = net_work(P, V);
+        work = 0.;
+        for (Process* process: processes)
+        {
+            work += process->work;
+        }
+
+        eff = work / heat_input;
     }
 
     void draw_pv(QChart* chart_pv)
@@ -102,13 +98,8 @@ struct Cycle
     }
 
     void draw(QChart* chart_pv, QChart* chart_ts, QValueAxis* x_axis_pv, QValueAxis* y_axis_pv, QValueAxis* x_axis_ts, QValueAxis* y_axis_ts)
-    {
-        //if (first)
-        //{
-            run();
-        //}
-
-
+    {        
+        run();
 
         draw_pv(chart_pv);
         series_pv->attachAxis(x_axis_pv);
@@ -121,22 +112,25 @@ struct Cycle
 
     void print(std::string filename)
     {
-        std::cout << "aaaa" << std::endl;
         std::ofstream out;
         out.open(filename);
 
-        for (int i=0; i<n; ++i)
+        for (Process* process: processes)
         {
-            out << i;
-            out << " ";
-            out << P[i];
-            out << " ";
-            out << V[i];
-            out << " ";
-            out << T[i];
-            out << " ";
-            out << S[i];
-            out << std::endl;
+            for (int i=0; i<process->n; ++i)
+            {
+                //out << i;
+                //out << " ";
+                out << process->P[i];
+                out << " ";
+                out << process->V[i];
+                out << " ";
+                out << process->T[i];
+                out << " ";
+                out << process->S[i];
+                out << std::endl;
+            }
+
         }
 
         out.close();
