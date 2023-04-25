@@ -15,11 +15,23 @@ struct Cycle
 
     QLineSeries *series_pv;
     QLineSeries *series_ts;
+    QLineSeries *series_pv_ql;
+    QLineSeries *series_pv_ql_lower;
+    QAreaSeries* series_pv_ql_area;
 
     Cycle(QString name)
     {
         series_pv = new QLineSeries();
         series_ts = new QLineSeries();
+        series_pv_ql = new QLineSeries();
+        series_pv_ql_lower = new QLineSeries();
+        series_pv_ql_area = new QAreaSeries();
+
+
+
+        series_pv_ql_area->setUpperSeries(series_pv_ql);
+        series_pv_ql_area->setLowerSeries(series_pv_ql_lower);
+
 
         series_pv->setName(name);
         series_ts->setName(name);
@@ -29,6 +41,9 @@ struct Cycle
     {
         delete series_pv;
         delete series_ts;
+        delete series_pv_ql;
+        delete series_pv_ql_lower;
+        delete series_pv_ql_area;
     }
 
     void find_min_max()
@@ -63,12 +78,17 @@ struct Cycle
 
     void run()
     {
+        series_pv->clear();
+        series_ts->clear();
+        series_pv_ql->clear();
+        series_pv_ql_lower->clear();
+
         run_processes();
 
         find_min_max();
 
-        series_pv->clear();
-        series_ts->clear();
+
+
         for (Process* process: processes)
         {
             for (int i=0; i<process->n; ++i)
@@ -84,7 +104,9 @@ struct Cycle
             work += process->work;
         }
 
-        eff = work / heat_input;
+        eff = work / heat_input * 100;
+
+
     }
 
     void draw_pv(QChart* chart_pv)

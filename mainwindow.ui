@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1387</width>
+    <width>1500</width>
     <height>926</height>
    </rect>
   </property>
@@ -14,77 +14,31 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QWidget" name="widget" native="true">
-    <property name="geometry">
-     <rect>
-      <x>140</x>
-      <y>330</y>
-      <width>120</width>
-      <height>80</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QChartView" name="graphicsView">
     <property name="geometry">
      <rect>
-      <x>350</x>
+      <x>440</x>
       <y>30</y>
-      <width>501</width>
-      <height>431</height>
+      <width>500</width>
+      <height>500</height>
      </rect>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="checkBox_stirling">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>90</y>
-      <width>92</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Stirling</string>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="checkBox_carnot">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>60</y>
-      <width>92</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Carnot</string>
     </property>
    </widget>
    <widget class="QChartView" name="graphicsView_2">
     <property name="geometry">
      <rect>
-      <x>900</x>
+      <x>960</x>
       <y>30</y>
-      <width>451</width>
-      <height>431</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QDoubleSpinBox" name="doubleSpinBox_cr">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>150</y>
-      <width>65</width>
-      <height>26</height>
+      <width>500</width>
+      <height>500</height>
      </rect>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_cr">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>190</y>
+      <x>30</x>
+      <y>500</y>
       <width>89</width>
       <height>25</height>
      </rect>
@@ -93,84 +47,179 @@
      <string>Apply</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label">
+   <widget class="QWidget" name="gridLayoutWidget">
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>130</y>
-      <width>131</width>
-      <height>17</height>
+      <y>30</y>
+      <width>281</width>
+      <height>151</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Compression ratio</string>
-    </property>
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="2" column="2">
+      <widget class="QLCDNumber" name="lcdNumber_nw_stirling"/>
+     </item>
+     <item row="2" column="3">
+      <widget class="QLCDNumber" name="lcdNumber_eff_stirling"/>
+     </item>
+     <item row="1" column="3">
+      <widget class="QLCDNumber" name="lcdNumber_eff_carnot"/>
+     </item>
+     <item row="1" column="2">
+      <widget class="QLCDNumber" name="lcdNumber_nw_carnot"/>
+     </item>
+     <item row="0" column="3">
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string>Efficiency (%)</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QCheckBox" name="checkBox_stirling">
+       <property name="text">
+        <string>Stirling</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QCheckBox" name="checkBox_carnot">
+       <property name="text">
+        <string>Carnot</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>Power (kW)</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QCheckBox" name="checkBox_otto">
+       <property name="text">
+        <string>Otto</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="2">
+      <widget class="QLCDNumber" name="lcdNumber_nw_otto"/>
+     </item>
+     <item row="3" column="3">
+      <widget class="QLCDNumber" name="lcdNumber_eff_otto"/>
+     </item>
+    </layout>
    </widget>
-   <widget class="QLabel" name="label_2">
+   <widget class="QWidget" name="gridLayoutWidget_2">
     <property name="geometry">
      <rect>
-      <x>100</x>
-      <y>40</y>
-      <width>67</width>
-      <height>17</height>
+      <x>20</x>
+      <y>230</y>
+      <width>351</width>
+      <height>231</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Net work</string>
-    </property>
-   </widget>
-   <widget class="QLCDNumber" name="lcdNumber_nw_stirling">
-    <property name="geometry">
-     <rect>
-      <x>100</x>
-      <y>90</y>
-      <width>64</width>
-      <height>23</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLCDNumber" name="lcdNumber_nw_carnot">
-    <property name="geometry">
-     <rect>
-      <x>100</x>
-      <y>60</y>
-      <width>64</width>
-      <height>23</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_4">
-    <property name="geometry">
-     <rect>
-      <x>180</x>
-      <y>40</y>
-      <width>71</width>
-      <height>17</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Efficiency</string>
-    </property>
-   </widget>
-   <widget class="QLCDNumber" name="lcdNumber_eff_carnot">
-    <property name="geometry">
-     <rect>
-      <x>180</x>
-      <y>60</y>
-      <width>64</width>
-      <height>23</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLCDNumber" name="lcdNumber_eff_stirling">
-    <property name="geometry">
-     <rect>
-      <x>180</x>
-      <y>90</y>
-      <width>64</width>
-      <height>23</height>
-     </rect>
-    </property>
+    <layout class="QGridLayout" name="gridLayout_2">
+     <item row="1" column="1">
+      <widget class="QDoubleSpinBox" name="doubleSpinBox"/>
+     </item>
+     <item row="0" column="1">
+      <widget class="QDoubleSpinBox" name="doubleSpinBox_cr"/>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="label_6">
+       <property name="text">
+        <string>Combustion temperature</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="2">
+      <widget class="QCheckBox" name="checkBox_3">
+       <property name="text">
+        <string>Lock</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_5">
+       <property name="text">
+        <string>Exhaust temperature</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="QCheckBox" name="checkBox">
+       <property name="text">
+        <string>Lock</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QDoubleSpinBox" name="doubleSpinBox_extemp">
+       <property name="maximum">
+        <double>9999999.000000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2">
+      <widget class="QCheckBox" name="checkBox_2">
+       <property name="text">
+        <string>Lock</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Compression ratio</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>Exhaust pressure</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="2">
+      <widget class="QCheckBox" name="checkBox_4">
+       <property name="text">
+        <string>Lock</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QDoubleSpinBox" name="doubleSpinBox_comtemp">
+       <property name="maximum">
+        <double>9999999.000000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="label_7">
+       <property name="text">
+        <string>Heat of combustion</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="QDoubleSpinBox" name="doubleSpinBox_qh">
+       <property name="maximum">
+        <double>9999999.000000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="2">
+      <widget class="QCheckBox" name="checkBox_qh">
+       <property name="text">
+        <string>Lock</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -178,24 +227,22 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1387</width>
+     <width>1500</width>
      <height>22</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuPV">
-    <property name="title">
-     <string>PV</string>
-    </property>
-   </widget>
-   <widget class="QMenu" name="menuTS">
-    <property name="title">
-     <string>TS</string>
-    </property>
-   </widget>
-   <addaction name="menuPV"/>
-   <addaction name="menuTS"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionCarnot">
+   <property name="text">
+    <string>Carnot</string>
+   </property>
+  </action>
+  <action name="actionStirlling">
+   <property name="text">
+    <string>Stirlling</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>

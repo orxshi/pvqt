@@ -18,14 +18,22 @@ public:
 private slots:
 
     void on_checkBox_carnot_stateChanged(int arg1);
-
     void on_checkBox_stirling_stateChanged(int arg1);
+    void on_checkBox_otto_stateChanged(int arg1);
+
 
 
 
     void on_doubleSpinBox_cr_valueChanged(double arg1);
 
     void on_pushButton_cr_clicked();
+
+
+    void on_doubleSpinBox_extemp_valueChanged(double arg1);
+
+    void on_doubleSpinBox_comtemp_valueChanged(double arg1);
+
+    void on_doubleSpinBox_qh_valueChanged(double arg1);
 
 private:
     Ui::MainWindow *ui;

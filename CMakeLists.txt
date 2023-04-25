@@ -23,6 +23,7 @@ set(PROJECT_SOURCES
         cycle.h
         process.h
         mainwindow.ui
+        Otto.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

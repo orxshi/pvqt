@@ -6,8 +6,8 @@ const double GM = 1.4;
 const double cp = 1.004;
 const double R = 0.287;
 const double cv = cp - R;
-const double TL = 300;
-const double TH = 600;
+double TL = 300;
+double TH = 600;
 const double VL = 0.1;
 double cr = 6; // compression ratio
 double VH = cr * VL;
@@ -15,6 +15,7 @@ const double m = 1;
 const double Tref = TL;
 const double Vref = VL;
 const double Sref = 0;
+double qh = 300;
 
 //double dw(int j, double P[n], double V[n], double T[n])
 //{

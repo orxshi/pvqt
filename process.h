@@ -136,6 +136,35 @@ struct IsochoricHeating: Process
         calc_heat();
         find_min_max();
     }
+
+    void VQT1(double Vc, double Q, double T1)
+    {
+        double T2 = T1 + Q / cv;
+
+        run(Vc, T1, T2);
+
+        double inc = (T2 - T1) / (n);
+
+        for (int j=0; j<n; ++j)
+        {
+            if (reverse)
+            {
+                T[j] = T2 - j * inc;
+            }
+            else
+            {
+                T[j] = T1 + j * inc;
+            }
+
+            V[j] = Vc;
+            P[j] = m * R * T[j] / V[j];
+            S[j] = Sref + cv * std::log(T[j]/Tref) + R * std::log(V[j]/Vref);
+        }
+
+        calc_work();
+        calc_heat();
+        find_min_max();
+    }
 };
 
 struct IsentropicExpansion: Process
@@ -147,7 +176,7 @@ struct IsentropicExpansion: Process
         this->reverse = reverse;
     }
 
-    void run(double V1, double T1, double T2)
+    void V1T1T2(double V1, double T1, double T2)
     {
         double inc = (T2 - T1) / (n);
 
@@ -163,6 +192,56 @@ struct IsentropicExpansion: Process
             }
 
             V[j] = V1 * std::pow(T1/T[j],1/(GM-1));
+            P[j] = m * R * T[j] / V[j];
+            S[j] = Sref + cv * std::log(T[j]/Tref) + R * std::log(V[j]/Vref);
+        }
+
+        calc_work();
+        calc_heat();
+        find_min_max();
+    }
+
+    void T2V1V2(double T2, double V1, double V2)
+    {
+        double inc = (V2 - V1) / (n);
+
+        for (int j=0; j<n; ++j)
+        {
+            if (reverse)
+            {
+                V[j] = V2 - j * inc;
+            }
+            else
+            {
+                V[j] = V1 + j * inc;
+            }
+
+            T[j] = T2 * std::pow(V2/V[j],(GM-1));
+            P[j] = m * R * T[j] / V[j];
+            S[j] = Sref + cv * std::log(T[j]/Tref) + R * std::log(V[j]/Vref);
+        }
+
+        calc_work();
+        calc_heat();
+        find_min_max();
+    }
+
+    void T1V1V2(double T1, double V1, double V2)
+    {
+        double inc = (V2 - V1) / (n);
+
+        for (int j=0; j<n; ++j)
+        {
+            if (reverse)
+            {
+                V[j] = V2 - j * inc;
+            }
+            else
+            {
+                V[j] = V1 + j * inc;
+            }
+
+            T[j] = T1 * std::pow(V1/V[j],(GM-1));
             P[j] = m * R * T[j] / V[j];
             S[j] = Sref + cv * std::log(T[j]/Tref) + R * std::log(V[j]/Vref);
         }
